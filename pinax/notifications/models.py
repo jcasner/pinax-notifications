@@ -39,6 +39,7 @@ class NoticeType(models.Model):
         return self.label
 
     class Meta:
+        db_table = 'notification_noticetype'
         verbose_name = _("notice type")
         verbose_name_plural = _("notice types")
 
@@ -95,6 +96,7 @@ class NoticeSetting(models.Model):
         return notice_setting_for_user(user, notice_type, medium, scoping)
 
     class Meta:
+        db_table = 'notification_noticesetting'
         verbose_name = _("notice setting")
         verbose_name_plural = _("notice settings")
         unique_together = ("user", "notice_type", "medium", "scoping_content_type", "scoping_object_id")
@@ -106,6 +108,9 @@ class NoticeQueueBatch(models.Model):
     Denormalized data for a notice.
     """
     pickled_data = models.TextField()
+
+    class Meta:
+        db_table = 'notification_noticequeuebatch'
 
 
 def get_notification_language(user):
